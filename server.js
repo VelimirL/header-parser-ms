@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const routes = require('./routes/index');
 
 const app = express();
 
@@ -9,12 +10,10 @@ app.use(cors({ optionsSuccessStatus: 200 }));
 
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/views/index.html`);
-});
+app.get('/', routes.homePage);
 
-app.get('/api/hello', (req, res) => {
-  res.json({ greeting: 'hello API' });
-});
+app.get('/api/hello', routes.sayHello);
+
+app.get('/api/whoami', routes.getUserInfo);
 
 app.listen(3000);
